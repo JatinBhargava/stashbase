@@ -14,7 +14,7 @@ import { featureErrorClass, type FeatureError } from '@/shared/domain/feature-er
 import type { SourceReference } from '@/shared/domain/source-reference';
 
 /** A packaged persona, or the reader's own prompt for the project. */
-export type AgentPersonaChoice = 'marketer' | 'journalist' | 'storyteller' | 'custom';
+export type AgentPersonaChoice = 'builder' | 'marketer' | 'journalist' | 'storyteller' | 'custom';
 
 /** The persona a scope's Chats run under: which one is chosen and the
  *  reader's own prompt, never the resolved text. The runtime composes the

@@ -3,7 +3,7 @@ export type AgentPersonaScope = { kind: 'folder'; path: string };
 
 /** The packaged personas, in the order the picker lists them. Their prompts
  *  are product content in `assets/agent-personas/<id>.md`. */
-export const AGENT_PERSONA_PRESETS = ['marketer', 'journalist', 'storyteller'] as const;
+export const AGENT_PERSONA_PRESETS = ['builder', 'marketer', 'journalist', 'storyteller'] as const;
 
 export type AgentPersonaPreset = (typeof AGENT_PERSONA_PRESETS)[number];
 

@@ -71,7 +71,7 @@ test('the supported renderer build is the only packaged renderer input', () => {
 test('packaged Agent Personas include every preset the picker offers', () => {
   // A packaged placeholder or a missing preset would start a session with no
   // persona while the picker says one is chosen.
-  for (const id of ['marketer', 'journalist', 'storyteller']) {
+  for (const id of ['builder', 'marketer', 'journalist', 'storyteller']) {
     const prompt = fs.readFileSync(path.join(root, 'assets', 'agent-personas', `${id}.md`), 'utf8').trim();
     assert.match(prompt, /^Take the persona of /);
   }

@@ -4,7 +4,7 @@ import { AGENT_PERSONA_PRESETS, MAX_AGENT_PERSONA_LENGTH } from '../shared/agent
 import { createAgentPersonaStore, readAgentPersonaPresets } from './agent-persona.ts';
 import type { AppConfigFile } from './app-config.ts';
 
-const presets = { marketer: 'Marketer prompt.', journalist: 'Journalist prompt.', storyteller: 'Storyteller prompt.' };
+const presets = { builder: 'Builder prompt.', marketer: 'Marketer prompt.', journalist: 'Journalist prompt.', storyteller: 'Storyteller prompt.' };
 
 function fixture(initial: AppConfigFile = {}) {
   let config = structuredClone(initial);

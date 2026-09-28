@@ -12,6 +12,7 @@ import {
   ChevronDown,
   CircleDashed,
   Drama,
+  Hammer,
   Megaphone,
   Newspaper,
   PenLine,
@@ -46,9 +47,15 @@ interface PersonaCopy {
 
 /** The packaged personas in the order the picker lists them. Their prompts
  *  are packaged server-side; this is only what the reader sees. */
-const PACKAGED_ORDER: readonly PackagedPersona[] = ['marketer', 'journalist', 'storyteller'];
+const PACKAGED_ORDER: readonly PackagedPersona[] = [
+  'builder',
+  'marketer',
+  'journalist',
+  'storyteller',
+];
 
 const COPY: Record<AgentPersonaChoice, PersonaCopy> = {
+  builder: { description: 'Build-in-public updates', icon: Hammer, label: 'Builder' },
   custom: { description: 'Your own persona prompt', icon: PenLine, label: 'Custom' },
   journalist: { description: 'A neutral news report', icon: Newspaper, label: 'Journalist' },
   marketer: { description: 'Upbeat launch copy', icon: Megaphone, label: 'Marketer' },

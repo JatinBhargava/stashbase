@@ -44,7 +44,7 @@ supported files directly.
 
 Tool calls and file edits can be reviewed in Chat. Use **Persona** in the
 composer to choose who the Agent is when it talks and writes in this project:
-Marketer, Journalist, Storyteller, or **Custom**, which opens an empty box for
+Builder, Marketer, Journalist, Storyteller, or **Custom**, which opens an empty box for
 your own. A choice applies from your next message and to new chats in the
 project. How the Agent works belongs in your own `AGENTS.md` or `CLAUDE.md`;
 StashBase never creates or rewrites them.
