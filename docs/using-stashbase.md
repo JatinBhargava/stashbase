@@ -54,11 +54,9 @@ available, and so is the [document diff](../README.md#document-diff): an Agent c
 propose a revision to an open Markdown document, and you accept or reject each change
 in the prose or take the whole set at once.
 
-Select prose in a Markdown document and choose **Humanize** on the selection
-toolbar to have Hemmingway-1 rewrite it plainly. The rewrite opens as the same
-suggested changes; nothing is written until you accept one. It sends the
-selection to a StashBase-run service, needs no account, and is free for a
-limited time.
+Select text in a Markdown document and choose **Heading** on the selection
+toolbar to turn it into Text, Heading 1, Heading 2 or Heading 3. Deeper
+headings, lists and quotes are in the `/` menu.
 
 Some files can be listed without being searchable or editable. Muted files
 are excluded from Search and automatic Chat context. Preview, editing,

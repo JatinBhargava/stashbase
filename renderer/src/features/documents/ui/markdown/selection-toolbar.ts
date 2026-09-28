@@ -1,11 +1,11 @@
 /**
- * StashBase's items on Crepe's selection toolbar: a Heading menu followed by
- * Humanize and Ask Agent, all ahead of Crepe's formatting.
+ * StashBase's items on Crepe's selection toolbar: a Heading menu ahead of
+ * Crepe's formatting, and Ask Agent after it.
  *
  * They are words, not glyphs, in one type style. Crepe's own items are
- * formatting marks every editor draws the same way; the product actions have
- * no self-evident glyphs, and a heading glyph does not say which kinds the
- * menu holds. Crepe takes an item's content as an HTML string, so each word is
+ * formatting marks every editor draws the same way; Ask Agent is a product
+ * action with no self-evident glyph, and a heading glyph does not say which
+ * kinds the menu holds. Crepe takes an item's content as an HTML string, so each word is
  * one span `document.css` gives its width and type; the button Crepe renders
  * has no label of its own, so the word is also the control's accessible name.
  */
@@ -22,7 +22,6 @@ import {
  *  action has no item. */
 export interface SelectionActions {
   askAgent?: ((ctx: Ctx) => void) | null | undefined;
-  humanize?: (() => void) | undefined;
 }
 
 /** Plain text, then the heading levels a writer reaches for; deeper levels
@@ -142,9 +141,9 @@ function toggleHeadingMenu(ctx: Ctx) {
   page.addEventListener('keydown', onKeyDown, true);
 }
 
-/** The toolbar with the Heading menu as its first group and the present
- *  product actions immediately after it, before Crepe's generic formatting. */
-export function selectionToolbar({ askAgent, humanize }: SelectionActions): ToolbarFeatureConfig {
+/** The toolbar with the Heading menu as its first group and Ask Agent, when
+ *  present, as its last. */
+export function selectionToolbar({ askAgent }: SelectionActions): ToolbarFeatureConfig {
   return {
     buildToolbar: (builder) => {
       // The menu shows the current kind itself, so the trigger never wears
@@ -154,31 +153,17 @@ export function selectionToolbar({ askAgent, humanize }: SelectionActions): Tool
         icon: `${label('Heading', ' data-heading-menu')}${chevron}`,
         onRun: (ctx) => toggleHeadingMenu(ctx),
       });
-      const hasActions = Boolean(askAgent || humanize);
-      if (hasActions) {
-        const selection = builder.addGroup('selection', 'Selection');
-        if (humanize) {
-          selection.addItem('humanize', {
-            active: () => false,
-            icon: label('Humanize'),
-            onRun: () => humanize(),
-          });
-        }
-        if (askAgent) {
-          selection.addItem('ask-agent', {
-            active: () => false,
-            icon: label('Ask Agent'),
-            onRun: (ctx) => askAgent(ctx),
-          });
-        }
-      }
-
-      // The builder only appends, and `build` hands back its own list. Move
-      // StashBase's one or two appended groups to the front so narrow split
-      // panes never clip the product actions behind generic formatting marks.
+      // The builder only appends, and `build` hands back its own list, so the
+      // heading group moves ahead of Crepe's formatting marks there.
       const groups = builder.build();
-      const productGroupCount = hasActions ? 2 : 1;
-      groups.unshift(...groups.splice(groups.length - productGroupCount, productGroupCount));
+      groups.unshift(...groups.splice(groups.length - 1, 1));
+
+      if (!askAgent) return;
+      builder.addGroup('selection', 'Selection').addItem('ask-agent', {
+        active: () => false,
+        icon: label('Ask Agent'),
+        onRun: (ctx) => askAgent(ctx),
+      });
     },
   };
 }

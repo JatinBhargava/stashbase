@@ -158,7 +158,6 @@ export function WorkspacePanes({
                 )}
                 revealLabel={dependencies.workspace.revealLabel}
                 runtime={documents}
-                humanizeApi={dependencies.documents.adapters.humanize}
                 sourceApi={dependencies.documents.adapters.source}
               />
             </div>

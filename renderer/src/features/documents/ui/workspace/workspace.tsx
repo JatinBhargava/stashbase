@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { SEARCH_NOTICES } from '@/features/documents/application/navigation-runtime';
 import type {
   DocumentAssetPort,
-  DocumentHumanizePort,
   DocumentSourcePort,
   DocxPreviewPort,
   GenericFilePreviewPort,
@@ -41,7 +40,6 @@ export interface DocumentWorkspaceProps {
   assetApi: DocumentAssetPort;
   docxPreviewApi: DocxPreviewPort;
   genericPreviewApi: GenericFilePreviewPort;
-  humanizeApi?: DocumentHumanizePort | undefined;
   /** Binds a selected Markdown passage to the Agent beside the document. */
   onAskAgent?: ((selection: DocumentSelection) => void) | undefined;
   onNavigate?: ((target: DocumentNavigationTarget) => void) | undefined;
@@ -66,7 +64,6 @@ export function DocumentWorkspace({
   assetApi,
   docxPreviewApi,
   genericPreviewApi,
-  humanizeApi,
   onAskAgent,
   onNavigate = ignoreNavigation,
   onOpenExternal = rejectExternalNavigation,
@@ -137,7 +134,6 @@ export function DocumentWorkspace({
             assetApi={assetApi}
             docxPreviewApi={docxPreviewApi}
             genericPreviewApi={genericPreviewApi}
-            humanizeApi={humanizeApi}
             navigation={runtime.navigation}
             onAskAgent={onAskAgent}
             onNavigate={onNavigate}

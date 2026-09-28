@@ -9,7 +9,6 @@ no account.
 | Capability | Access source |
 |---|---|
 | Default Agent | StashBase account with free or subscribed Agent credits |
-| Humanize | StashBase-run rewrite service; no account today |
 | Codex / Claude | The native runtime's installation and authentication |
 | Search by meaning | User-supplied embedding key in Settings, billed independently |
 | External HTTP MCP | Current Settings token; separate opt-in for Docker access |

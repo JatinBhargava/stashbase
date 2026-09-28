@@ -274,10 +274,6 @@ Inline review: `renderer/src/features/documents/domain/revision.ts`,
 `renderer/src/features/documents/hooks/use-revision-proposals.ts`, and
 `renderer/src/features/documents/ui/markdown/revision-adapter.ts` over a patched
 `@milkdown/plugin-diff` (`patches/`).
-Humanize on a selection: `renderer/src/features/documents/ui/markdown/humanize-selection.ts`,
-`use-humanize.ts`, `selection-toolbar.ts`, `renderer/src/features/documents/infrastructure/humanize-api.ts`;
-host `server/humanize.ts` and `server/routes/humanize.ts`; wire
-`shared/protocols/http/humanize.ts`.
 Ask Agent on a selection: `renderer/src/features/documents/ui/markdown/selection-markdown.ts`
 and `selection-toolbar.ts`, bound in `renderer/src/app/shell.tsx`, which saves the
 documents, shows the chat pane, and hands the passage to the Agent workspace.
@@ -316,29 +312,10 @@ Host/services: `server/file-save.ts`, `server/text-file-transaction.ts`,
   buffer, and that a per-change Reject resolves a deletion, including one of
   two adjacent deleted blocks while the other stays acceptable.
   It also proves the patched start keeps a document's trailing empty
-  paragraph out of the diff. `humanize-selection.test.ts` proves, on the same
-  build, that a selection widens to whole blocks, refuses code, and that the
-  proposal reviews as exactly one change on a document ending in a list;
-  `use-humanize.test.tsx` covers the request's refusals (review open, not
-  prose, document changed, cancelled, rebuilt editor) and both failure
-  ladders; `server/humanize.test.ts` and `server/routes/humanize.test.ts`
-  cover stream draining, the cut-off refusal and status mapping. One real
-  request through `server/humanize.ts` reached the live service on 2026-09-22
-  and returned a whole rewrite in about two seconds. Unproven: the shared
-  per-address rate limit under real use, and rewrite quality.
+  paragraph out of the diff.
   `selection-toolbar.test.ts` runs the Heading menu against a real Milkdown
   editor, covering toolbar order, the checked block kind, paragraph/heading
-  conversion, and menu dismissal while retaining Humanize and Ask Agent.
-- **Driven Runtime Pass (Humanize, 2026-09-22):** the built application, with
-  its own user data and port, opened a seeded folder from Recent, opened its
-  Markdown draft in Edit mode, and took real mouse input. A drag from a
-  paragraph across the code block into the list, then Humanize on the
-  selection toolbar, showed the refusal notice naming prose and left the
-  document untouched; Dismiss cleared it. A drag over one paragraph and
-  Humanize showed the running notice, and within seconds the live service's
-  rewrite opened as a review of three changes, all inside that paragraph,
-  with the code block and the list after it unmarked. Screenshots were
-  reviewed by eye; the pass records no timing beyond "seconds".
+  conversion, menu dismissal, and Ask Agent as the last item.
 - **Reading typography runtime pass (2026-09-26):** the built macOS source app,
   with isolated configuration and telemetry disabled, opened this repository's
   README in Documents. The document reading menu changed Serif to Sans and the
@@ -352,10 +329,14 @@ Host/services: `server/file-save.ts`, `server/text-file-transaction.ts`,
   isolated configuration and telemetry disabled, opened a fixture Markdown file
   in the normal Documents and Chat split. Selecting its blocks and choosing
   Heading 2 converted them to H2, and reopening the menu marked Heading 2 as the
-  current choice. A full-window screenshot was reviewed by eye to confirm the
-  Heading menu, Humanize, and Ask Agent remain visible ahead of the generic
-  formatting actions at that width. This pass did not use a packaged, signed
-  application or exercise undo and save-conflict recovery.
+  current choice. A later pass the same day, after Humanize was removed,
+  selected prose in the same split: the toolbar read Heading, the formatting
+  marks, then Ask Agent on one 401px line, and its open menu checked Text.
+  With the document pane forced to 420, 360 and 320px, it stayed on one line
+  at 420px and below that kept the formatting groups whole on the first row
+  with Ask Agent on a second, never clipped by the pane. Clipped screenshots in light and dark were reviewed
+  by eye. These passes did not use a packaged, signed application or exercise
+  undo and save-conflict recovery.
 - **Driven Runtime Pass:** isolated built-app passes cover preview reuse/keep,
   history, draft creation/rename, and kept-only tab restoration. Earlier journal
   restoration passes apply to the removed snapshot feature, not current durability. A separate window-origin
@@ -883,11 +864,11 @@ suggestion of the document in front comes from `activeSource`, which
 decides what is offered and `use-suggested-source.ts` holds the dismissal.
 `context.test.ts`, `session-runtime.context.test.ts`, `ask-about.test.ts`,
 `session-api.test.ts`, `codex-history.test.ts`, `context-composer.test.tsx`,
-`humanize-selection.test.ts`, and `use-agent-environment.test.tsx` own these rules.
+`selection-markdown.test.ts`, and `use-agent-environment.test.tsx` own these rules.
 A driven built-app pass (2026-09-25, Linux, isolated home, folder dialog stubbed
 in the main process) opened a Markdown file beside the Agent pane: the pane
-offered it as a dashed suggestion; a selection showed Humanize and Ask Agent on
-the toolbar; Ask Agent bound "tide rises twice" as a passage chip and moved the
+offered it as a dashed suggestion; a selection showed Ask Agent on the
+toolbar; Ask Agent bound "tide rises twice" as a passage chip and moved the
 caret into the composer; clicking the suggestion turned it into an inline
 mention and removed it. The formatting toolbar stays drawn after Ask Agent
 moves focus, until the next selection change. Not proven at runtime: a real

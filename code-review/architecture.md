@@ -364,12 +364,6 @@ data migration is not required by [maintenance policy](../MAINTENANCE.md#previou
   its own authenticated session, explicitly displaying the account; desktop
   account tokens never appear in links or Stripe configuration.
   Child environment and AppData HOME/config isolate ambient secrets and user config.
-- Humanize calls the website Worker at `stashbase.ai/api/rewrite` from Node with
-  the client version header and no credential; the renderer never reaches it.
-  The route takes no folder and touches no file: `server/humanize.ts` drains the
-  streamed reply whole and refuses one the service cut short, and the renderer
-  builds the proposal against its live buffer and opens it through the document
-  runtime's revision entry. Metering is the service's, by network address.
 - Built-in HTTP and external MCP share Project Operations. Streamable HTTP checks
   the current Settings token on every POST; rotation invalidates old tokens.
   Loopback is default; Docker opt-in exposes only the separate MCP listener.
@@ -462,10 +456,7 @@ registered host boundaries; renderer shared types are a different layer.
   proposal and which upstream's span-keyed rejection never matches. The same
   patch carries the reviewed document's trailing empty paragraph into a parsed
   proposal, which Markdown cannot spell. A Milkdown upgrade carries the patch,
-  or retires it against the revision engine test. A Humanize proposal is the
-  live document with the rewrite in the selection's place, serialized by the
-  editor's own serializer, so the review's diff falls inside the selection; the
-  diff ignores list looseness, which that serializer does not preserve.
+  or retires it against the revision engine test.
 - Surface recovery remounts the smallest boundary. Shell remount loses live buffers
   and reloads only saved source files. HTTP loss must not reload the app.
   Raw failures are mapped to feature-owned messages and recovery kinds.

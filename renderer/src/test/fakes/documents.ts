@@ -3,7 +3,6 @@ import { vi } from 'vite-plus/test';
 import type { AppDependencies } from '@/app/dependencies';
 import type {
   DocumentAssetPort,
-  DocumentHumanizePort,
   DocumentQueryScope,
   DocumentRevisionsPort,
   DocumentSourcePort,
@@ -59,10 +58,6 @@ export function genericPreviewApi(
   };
 }
 
-export function humanizeApi(overrides: Partial<DocumentHumanizePort> = {}): DocumentHumanizePort {
-  return { humanize: vi.fn(async () => ({ text: 'A plain line.' })), ...overrides };
-}
-
 export function revisionsApi(
   overrides: Partial<DocumentRevisionsPort> = {},
 ): DocumentRevisionsPort {
@@ -108,7 +103,6 @@ export function documentAdapters(overrides: Partial<DocumentAdapters> = {}): Doc
     asset: assetApi(),
     docxPreview: docxPreviewApi(),
     genericPreview: genericPreviewApi(),
-    humanize: humanizeApi(),
     revisions: revisionsApi(),
     source: sourceApi(),
     windowLifecycle: documentWindowLifecycle(),

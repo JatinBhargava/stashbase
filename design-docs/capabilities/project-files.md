@@ -105,19 +105,8 @@ and Heading 3, with the selection's current kind checked. A choice turns every
 selected block into that kind. Deeper levels and other block types stay in the
 slash menu.
 
-The reader can also ask for a rewrite from the document itself. **Humanize** on
-the selection toolbar sends the selected prose to Hemmingway-1 through a
-StashBase-run service and opens the rewrite as the same review; nothing is
-written until a change is accepted. The selection widens to the whole
-paragraphs, headings, quotes or lists it touches, up to about 1,000 words;
-code, tables, images and raw HTML are refused rather than rewritten. The
-rewrite is refused when the document changed while it ran, when the service
-cut it short, or when it changes nothing, and a busy or unavailable service
-leaves the document as it was. Humanize needs no account today and is free for
-a limited time; the service meters by network address, not by account.
-
-**Ask Agent** on the same toolbar binds the exact selection, as Markdown, to
-the chat beside the document and brings that chat into view. It writes
+**Ask Agent**, last on the selection toolbar, binds the exact selection, as
+Markdown, to the chat beside the document and brings that chat into view. It writes
 nothing and needs no service; the selection is saved first so the Agent reads
 what the reader selected. [Agent Sessions](agent-sessions.md) owns how the
 passage is sent.

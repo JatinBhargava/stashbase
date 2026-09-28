@@ -33,7 +33,6 @@ import { writeToClipboard } from '@/shared/ui/clipboard';
 
 import { watchMarkdownChanges } from './changes';
 import { createMarkdownFindController } from './find-controller';
-import { HumanizeNotice } from './humanize-notice';
 import { MarkdownOpenFailure } from './open-failure';
 
 import '@milkdown/crepe/theme/common/style.css';
@@ -52,7 +51,6 @@ import {
 } from './outline-adapter';
 import { useAskAgent } from './selection-markdown';
 import { selectionToolbar } from './selection-toolbar';
-import { useHumanize, type HumanizeBinding } from './use-humanize';
 import { useRevisionReview, type RevisionBinding } from './use-revision-review';
 
 type CreationState = 'creating' | 'failed' | 'ready';
@@ -61,9 +59,6 @@ export interface MarkdownDocumentProps {
   active: boolean;
   canChangeMode: boolean;
   dirty: boolean;
-  /** Humanize on the selection toolbar. Absent where no rewrite service is
-   *  wired, and then the toolbar offers no such control. */
-  humanize?: HumanizeBinding | undefined;
   mode: MarkdownViewMode;
   name: string;
   /** Ask Agent on the selection toolbar, with the exact selection. Absent
@@ -89,7 +84,6 @@ export function MarkdownDocument({
   active,
   canChangeMode,
   dirty,
-  humanize,
   mode,
   name,
   onAskAgent,
@@ -133,9 +127,6 @@ export function MarkdownDocument({
     attach: attachReview,
     bar: reviewBar,
   } = useRevisionReview({ creationState, revision });
-  const humanizeControls = useHumanize(humanize, editorRef);
-  // `run` is stable, so the toolbar built with the editor keeps it without a ref.
-  const humanizeRun = humanize === undefined ? null : humanizeControls.run;
   const askAgentRun = useAskAgent(onAskAgent, source);
   const pendingAnchor = useStore(navigation.store, (state) =>
     state.pendingAnchor?.tabId === tabId ? state.pendingAnchor.id : null,
@@ -173,13 +164,7 @@ export function MarkdownDocument({
           }),
       })
       .addFeature(blockEdit)
-      .addFeature(
-        toolbar,
-        selectionToolbar({
-          askAgent: askAgentRun,
-          humanize: humanizeRun ? () => humanizeRun(editor) : undefined,
-        }),
-      )
+      .addFeature(toolbar, selectionToolbar({ askAgent: askAgentRun }))
       .addFeature(table)
       .addFeature(codeMirror, { copyText: 'Copy code', languages })
       .addFeature(latex);
@@ -228,7 +213,7 @@ export function MarkdownDocument({
       }
       stopCreation();
     };
-  }, [askAgentRun, attachReview, attempt, humanizeRun, navigation, tabId]);
+  }, [askAgentRun, attachReview, attempt, navigation, tabId]);
 
   useEffect(() => {
     editorRef.current?.setReadonly(readOnly);
@@ -383,7 +368,6 @@ export function MarkdownDocument({
         <MarkdownOpenFailure onRetry={() => setAttempt((current) => current + 1)} />
       )}
       {reviewBar ?? <div className="markdown-reading-control">{readingControl}</div>}
-      <HumanizeNotice controls={humanizeControls} />
       {linkFailure && (
         <div className="markdown-link-failure" role="alert">
           Could not open this link in your browser.

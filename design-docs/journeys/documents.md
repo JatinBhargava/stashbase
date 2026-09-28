@@ -17,8 +17,8 @@ source mutations, saving, and release guarantees.
    Commands act on the visible surface. Opening a document never attaches it to Chat.
    Review a proposed Markdown revision in the prose, accepting or rejecting each
    change or the remaining set. The Chat card reflects the same review.
-   Select prose and choose Humanize to receive Hemmingway-1's rewrite as such a
-   proposal; a refusal names its reason and leaves the document as it was.
+   Select prose and choose a Heading menu entry to turn the selected blocks into
+   text or a heading.
    Select any Markdown and choose Ask Agent to bind that passage to the chat
    beside the document; the chat pane opens if it was hidden. The pane also
    suggests the document in front, which attaches only on a click.

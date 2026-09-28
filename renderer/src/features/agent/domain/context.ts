@@ -47,7 +47,7 @@ export type AgentContextItem =
       previewUrl?: string | undefined;
     };
 
-/** The most selected text one passage carries, near Humanize's own limit. */
+/** The most selected text one passage carries: about 1,000 words. */
 export const PASSAGE_QUOTE_LIMIT = 6_000;
 
 /** FNV-1a, enough to tell two passages of one file apart in a key. */

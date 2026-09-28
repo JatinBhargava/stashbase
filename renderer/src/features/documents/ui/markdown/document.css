@@ -111,34 +111,6 @@
   transform: translateX(-50%);
 }
 
-/* Humanize's progress and refusals sit where the link failure does: one
-   line at the foot of the document, out of the prose, gone when answered. */
-.markdown-humanize-notice {
-  position: absolute;
-  z-index: 3;
-  bottom: 16px;
-  /* Centred by auto margins between the two insets: a `left: 50%` pill
-     shrinks to half the surface and folds a one-line sentence into four. */
-  inset-inline: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: fit-content;
-  max-width: calc(100% - 32px);
-  margin-inline: auto;
-  padding: 4px 4px 4px 10px;
-  color: var(--muted-foreground);
-  font-size: var(--fs-caption, 12px);
-  background: color-mix(in oklab, var(--surface-3) 94%, transparent);
-  border: 1px solid var(--border);
-  border-radius: var(--shape-input-radius, 8px);
-  box-shadow: var(--shadow-4);
-}
-
-.markdown-humanize-notice[data-state='failed'] {
-  color: var(--destructive);
-}
-
 ::highlight(stashbase-document-find) {
   color: inherit;
   background: color-mix(in oklab, var(--accent) 72%, transparent);
@@ -377,8 +349,44 @@
   color: var(--foreground);
 }
 
-.markdown-crepe .milkdown-toolbar .divider {
+/* Crepe spaces its toolbar for a wide page: 6px around each item and 10px
+   around each divider made it 516px, wider than a document pane can get
+   beside the chat (320px at least). Tighter spacing keeps it on one line in a
+   usual split, and past the pane's width it wraps rather than being clipped. */
+.markdown-crepe .milkdown .milkdown-toolbar {
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: calc(100cqi - 16px);
+  padding: 4px;
+}
+
+.markdown-crepe .milkdown .milkdown-toolbar .toolbar-item {
+  margin: 0;
+}
+
+.markdown-crepe .milkdown .milkdown-toolbar .divider {
+  height: 20px;
+  margin: 0 4px;
   background: var(--border);
+}
+
+/* Too narrow for one line (it needs 401px), the spacing tightens once more and Ask Agent takes a row of its own:
+   the divider before it becomes the hairline between the rows, so the
+   formatting groups stay whole instead of wrapping mid-group. */
+@container (max-width: 416px) {
+  .markdown-crepe .milkdown .milkdown-toolbar .divider {
+    margin: 0 3px;
+  }
+
+  .markdown-crepe .milkdown .milkdown-toolbar .toolbar-item:has([data-heading-menu]) {
+    padding-inline: 6px;
+  }
+
+  .markdown-crepe .milkdown .milkdown-toolbar .divider:nth-last-child(2) {
+    flex-basis: 100%;
+    height: 1px;
+    margin: 4px 0;
+  }
 }
 
 /* The words among the glyphs (Heading, Ask Agent): the item widens to the word,
@@ -392,7 +400,8 @@
 
 .markdown-toolbar-label {
   color: color-mix(in oklab, var(--foreground) 76%, var(--background));
-  font-size: var(--fs-caption, 12px);
+  /* 13px holds its own beside Crepe's 24px glyphs; the caption size read faint. */
+  font-size: 13px;
   font-weight: 500;
   line-height: 1;
   white-space: nowrap;
@@ -440,8 +449,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  height: 30px;
-  padding-inline: 8px;
+  height: 32px;
+  padding-inline: 10px;
   color: color-mix(in oklab, var(--foreground) 76%, var(--background));
   cursor: pointer;
   border-radius: 4px;

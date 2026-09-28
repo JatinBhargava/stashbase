@@ -1,9 +1,9 @@
 /**
  * The exact selection as Markdown, for handing a passage to the Agent.
  *
- * Unlike Humanize this does not widen to whole blocks or refuse code and
- * tables: the reader is asking about precisely what they marked, and nothing
- * is rewritten in its place. The editor's own serializer spells it, so the
+ * It does not widen to whole blocks or refuse code and tables: the reader is
+ * asking about precisely what they marked, and nothing is rewritten in its
+ * place. The editor's own serializer spells it, so the
  * passage reads the way the rest of the document does.
  */
 import { editorViewCtx, schemaCtx, serializerCtx } from '@milkdown/kit/core';

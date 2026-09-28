@@ -85,19 +85,16 @@ async function openEditor(source: string) {
 }
 
 describe('selection toolbar Heading menu', () => {
-  it('leads the toolbar and keeps Humanize and Ask Agent last', () => {
-    const groups = buildGroups(
-      selectionToolbar({ askAgent: () => undefined, humanize: () => undefined }),
-    );
+  it('leads the toolbar and keeps Ask Agent last', () => {
+    const groups = buildGroups(selectionToolbar({ askAgent: () => undefined }));
     expect(groups.map((group) => group.key)).toEqual([
       'heading',
-      'selection',
       'formatting',
       'function',
+      'selection',
     ]);
     expect(groups.flatMap((group) => group.items.map((item) => item.key))).toEqual([
       'heading',
-      'humanize',
       'ask-agent',
     ]);
   });

@@ -43,9 +43,8 @@ import { revisionHoverPlugin } from './revision-hover';
 /** The outline adapter stamps heading ids into the document, so a diff that
  *  compared them would report every heading as changed. Milkdown writes every
  *  bullet list loose, whatever the list was, so a proposal that went through
- *  its serializer (Humanize builds its own that way) would report every tight
- *  list as changed; whether a list is loose is spacing, not a change a reader
- *  should have to reject. */
+ *  its serializer would report every tight list as changed; whether a list is
+ *  loose is spacing, not a change a reader should have to reject. */
 const IGNORED_ATTRIBUTES = {
   bullet_list: ['spread'],
   heading: ['id'],
