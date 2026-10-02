@@ -96,6 +96,17 @@ describe('Sidebar composition', () => {
     expect(shellState()).toBe('expanded');
   });
 
+  it('shrinks from the default width when pressing the left arrow', () => {
+    renderSidebar();
+    const rail = screen.getByRole('separator', { name: 'Resize or collapse sidebar' });
+    const initialWidth = Number(rail.getAttribute('aria-valuenow'));
+
+    fireEvent.keyDown(rail, { key: 'ArrowLeft' });
+
+    expect(Number(rail.getAttribute('aria-valuenow'))).toBe(initialWidth - 16);
+    expect(shellState()).toBe('expanded');
+  });
+
   it('moves focus along the menu with the arrow keys', () => {
     renderSidebar();
     const first = row('Library');

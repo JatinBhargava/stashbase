@@ -411,11 +411,16 @@ Host/services: `server/file-save.ts`, `server/text-file-transaction.ts`,
   the same step as the Agent pane seam, within 272–360 px, and never collapse it.
   The rail now renders inside the sidebar's landmark, measured at the same
   position in the sidebar, floating, and inset variants.
-  `sidebar.test.tsx` covers the bounds, clamping, the reported width, and the
-  persisted width. A harness in Electron's Chromium with the shipped stylesheet
+  `sidebar.test.tsx` covers the bounds, clamping, the reported width, the
+  width-change callback, and shrinking from the provider's 288 px default.
+  A harness in Electron's Chromium with the shipped stylesheet
   pressed real Tab and arrow keys: focus reached the rail, the panel and saved
   width moved 300 → 332 → 272, the edge hairline took the focus colour, and the
   rail's tooltip stood beside it and closed when focus left.
+  A built-app Electron pass (2026-10-02) opened an empty project with an
+  isolated profile, reached the rail with real Tab input, resized from 288 px
+  with arrow keys, held both bounds without collapsing, and verified a 328 px
+  rendered width, native session-file persistence, and restoration after reload.
 - **Documents implementation (2026-09-15):** focused regressions cover explicit
   merge completion with no marker autosave, version-checked Keep-my-version,
   hidden-tab autosave, retained CodeMirror undo, New tab close routing, preview
