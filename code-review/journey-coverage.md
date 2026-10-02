@@ -405,6 +405,12 @@ Host/services: `server/file-save.ts`, `server/text-file-transaction.ts`,
   change it stayed painted after focus moved away; after it, focused lines keep
   the hover color and unfocused lines are transparent. happy-dom does not apply
   CodeMirror's focus class or theme, so no unit test owns this.
+  A built-app Electron pass (2026-10-02) opened plain-text, JSON, and Markdown
+  files in an isolated project/profile. Real mouse input focused and blurred
+  the source editors via the file tree, then moved from a Markdown code block
+  to prose and between two code blocks. Computed line and gutter backgrounds
+  were the hover color only in the focused editor and transparent otherwise;
+  refocusing restored the highlight. The light composition was inspected by eye.
 - **Known issues — source/viewers:** Markdown relative images lack folder-scoped resolution/upload/lightbox; heading
   ids are assigned by order without identity cross-check. PDF placeholder/observer
   counts are unbounded.
